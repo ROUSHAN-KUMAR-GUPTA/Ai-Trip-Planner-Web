@@ -1,8 +1,9 @@
 ## 🌍✨ AI Trip Planner
 🚀 Plan Smarter, Travel Better – Your personal AI-powered travel companion for crafting unforgettable adventures!
 
-📖 Overview
-AI Trip Planner is a smart travel planning web app that leverages the power of Generative AI to create personalized, day-by-day trip itineraries and suggests top hotel options. Users can save, manage, and revisit their trips — all in a seamless and elegant experience.
+## 📖 Overview
+
+*AI Trip Planner* is a smart travel planning web app that leverages the power of *Generative AI* to create personalized, day-by-day trip itineraries and suggests top hotel options. Users can save, manage, and revisit their trips — all in a seamless and elegant experience
 
 ## 🎯 Key Features
 ✅ AI-Powered Itinerary Generator (Gemini AI)
