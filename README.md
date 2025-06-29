@@ -14,15 +14,12 @@
 ✅ Deployed Live on Vercel
 
 ## 🧠 🎯 My Execution Strategy
-Collected user preferences like destination, trip duration, type, and budget.
 
-Passed data into Gemini AI to generate structured travel plans (in JSON).
-
-Integrated Google Places API to fetch real-time hotel recommendations.
-
-Used Firebase Auth to manage user sessions and Firestore to store trip data securely.
-
-Deployed the app on Vercel for global reach and speed.
+* Collected user preferences like destination, trip duration, type, and budget.
+* Passed data into Gemini AI to generate structured travel plans (in JSON).
+* Integrated *Google Places API* to fetch real-time hotel recommendations.
+* Used *Firebase Auth* to manage user sessions and *Firestore* to store trip data securely.
+* Deployed the app on *Vercel* for global reach and speed.
 
 ## 🛠️ Tech Stack
 React.js, Tailwind CSS, Vite, Firebase (Auth + Firestore), Gemini AI (Google), Google Places API, Vercel
