@@ -4,7 +4,7 @@ const API_KEY = import.meta.env.VITE_GOOGLE_GEMINI_AI_API_KEY;
 
 export const generateTravelPlan = async (prompt, saveTripCallback) => {
   const genAI = new GoogleGenerativeAI(API_KEY);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
   try {
     const result = await model.generateContent(prompt);
