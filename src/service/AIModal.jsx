@@ -7,13 +7,20 @@ export const generateTravelPlan = async (prompt, saveTripCallback) => {
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }); 
 
   try {
-    const result = await model.generateContent(prompt);
+  const result = await model.generateContent({
+    contents: [
+      {
+        role: "user",
+        parts: [{ text: prompt }],
+      },
+    ],
+  });
 
-    if (!result || !result.response || !result.response.text) {
-      throw new Error('Failed to get a valid response from the AI model');
-    }
+  if (!result?.response) {
+    throw new Error('Failed to get a valid response from the AI model');
+  }
 
-    const output = await result.response.text();
+  const output = result.response.text();
 
     // Extract the JSON data from the AI output
     const jsonStart = output.indexOf('{');
