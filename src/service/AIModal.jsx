@@ -1,34 +1,28 @@
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
 const API_KEY = import.meta.env.VITE_GOOGLE_GEMINI_AI_API_KEY;
 
 export const generateTravelPlan = async (prompt, saveTripCallback) => {
+  const genAI = new GoogleGenerativeAI(API_KEY);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" }); 
+
   try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1/models/gemini-1.0-pro:generateContent?key=${API_KEY}`,
+  const result = await model.generateContent({
+    contents: [
       {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              role: "user",
-              parts: [{ text: prompt }],
-            },
-          ],
-        }),
-      }
-    );
+        role: "user",
+        parts: [{ text: prompt }],
+      },
+    ],
+  });
 
-    const data = await response.json();
+  if (!result?.response) {
+    throw new Error('Failed to get a valid response from the AI model');
+  }
 
-    if (!data?.candidates) {
-      throw new Error("Failed to get valid AI response");
-    }
+  const output = result.response.text();
 
-    const output = data.candidates[0].content.parts[0].text;
-
-    // Extract JSON safely
+    // Extract the JSON data from the AI output
     const jsonStart = output.indexOf('{');
     const jsonEnd = output.lastIndexOf('}');
     const jsonString = output.slice(jsonStart, jsonEnd + 1);
@@ -42,8 +36,9 @@ export const generateTravelPlan = async (prompt, saveTripCallback) => {
         rating: hotel.rating,
         description: hotel.description,
         hotelImageUrl: hotel.hotelImageUrl,
-        hotelAddress: hotel.hotelAddress,
-        price: hotel.price,
+        hotelAddress:hotel.hotelAddress,
+        price:hotel.price,
+
       })),
 
       itinerary: parsed.itinerary.map(day => ({
@@ -64,10 +59,14 @@ export const generateTravelPlan = async (prompt, saveTripCallback) => {
 
     console.log("✅ Transformed Output:", JSON.stringify(transformed, null, 2));
 
+    // Call the provided callback to save the transformed trip data
     saveTripCallback(JSON.stringify(transformed, null, 2));
 
   } catch (err) {
     console.error("❌ Error:", err);
+    if (err.message.includes('Failed to get a valid response')) {
+      console.warn("🪵 AI Response Issue: Please check the AI model response.");
+    }
     console.warn("🪵 Raw AI response:\n", err);
   }
 };
