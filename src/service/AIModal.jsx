@@ -3,7 +3,7 @@ const API_KEY = import.meta.env.VITE_GOOGLE_GEMINI_AI_API_KEY;
 export const generateTravelPlan = async (prompt, saveTripCallback) => {
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`,
       {
         method: "POST",
         headers: {
